@@ -119,7 +119,10 @@ def _parse_cloudwatch_log(log, additional_data):
 
 def _get_additional_logs_data(aws_logs_data, context):
     # type: (dict, 'LambdaContext') -> dict
-    additional_data = {'service': aws_logs_data['logGroup']}
+    additional_data = {
+        'service': aws_logs_data['logGroup'],
+        'logger_name': aws_logs_data['logStream']
+    }
     try:
         # If ENRICH has value, add the properties
         if os.environ['ENRICH']:
